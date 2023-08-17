@@ -1,33 +1,33 @@
 import React, { useState } from "react";
 import TextArea from "../TextArea";
-import { Itarefa } from "../../interface/Itarefa";
-const { v4: uuidv4 } = require("uuid");
+import { Itarefa } from "@/interface/Itarefa";
 
-const Formulario = () => {
-  const [input, setInput] = useState("");
-  const [tarefas, setTarefas] = useState<Itarefa[]>([]);
-  const id: string = uuidv4();
-
-  console.log(id);
-
+interface Iform {
+ 
+  input: string;
+  setInput: React.Dispatch<React.SetStateAction<string>>;
+  isPublic: boolean;
+  setIsPublic: React.Dispatch<React.SetStateAction<boolean>>;
+  onSubmitForm: (e: React.FormEvent) => void;
+}
+const Formulario = ({
+  input,
+  setInput,
+  isPublic,
+  setIsPublic,
+  onSubmitForm
+}: Iform) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
   };
 
-  const onSubmitForm = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-
-    if (input.trim() === "") {
-      return;
-    }
-    const novaTarefa: Itarefa = { id: id, tarefa: input };
-    setTarefas([...tarefas, novaTarefa]);
-    setInput("");
+  const handleChangePublic = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsPublic(e.target.checked);
   };
   return (
     <form
       action=""
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={(e) => onSubmitForm(e)}
       className="bg-slate-950 w-full p-4 flex justify-center"
     >
       <section className="mb:w-[90%] lg:w-[50%]">
@@ -50,6 +50,8 @@ const Formulario = () => {
             type="checkbox"
             name="tarefaPublica"
             id="tarefaPublica"
+            checked={isPublic}
+            onChange={(e) => handleChangePublic(e)}
           />
           <label
             className="font-semibold text-slate-200 text-xl"
