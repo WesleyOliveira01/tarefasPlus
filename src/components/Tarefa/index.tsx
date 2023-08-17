@@ -8,12 +8,12 @@ interface Itarefa {
 }
 const Tarefa = ({ titulo, isPublic = false }: Itarefa) => {
   return (
-    <section className="max-w-[839px] w-[50%] border-2 border-slate-400 p-4  rounded-md mb:w-[90%] gap-3 flex flex-col">
+    <section className="max-w-[839px] w-[50%] border-2 border-slate-400 p-3  rounded-md mb:w-[90%] flex flex-col">
       {isPublic && (
         <section className="flex items-center gap-2">
-          <h1 className="p-1 w-[15%] text-center bg-blue-600 text-slate-200 font-semibold rounded-md">
+          <h2 className="p-2 max-w-[20%] text-center bg-blue-600 text-slate-200 font-semibold rounded-md">
             PUBLICO
-          </h1>
+          </h2>
           <button>
             <FaShare size={25} color={"#2563EB"} />
           </button>

@@ -28,7 +28,7 @@ const Dashboard = () => {
         <title>Tarefas+ | Dashboard</title>
       </Head>
       <main
-        className="h-[90vh] bg-slate-200 text-slate-950 flex flex-col items-center
+        className="text-slate-950 flex flex-col items-center
     "
       >
         <Formulario />
