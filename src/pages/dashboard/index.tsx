@@ -10,6 +10,8 @@ import {
   orderBy,
   where,
   onSnapshot,
+  doc,
+  deleteDoc
 } from "firebase/firestore";
 // components
 import Head from "next/head";
@@ -46,6 +48,8 @@ const Dashboard = ({ user }: IdashboardProps) => {
   const [input, setInput] = useState("");
   const [isPublic, setIsPublic] = useState<boolean>(false);
   const [tarefas, setTarefas] = useState<Itarefa[]>([]);
+
+  
 
   useEffect(() => {
     const loadTarefas = async () => {
@@ -90,12 +94,6 @@ const Dashboard = ({ user }: IdashboardProps) => {
       console.log("error: " + e);
     }
 
-    {
-      /**
-    const novaTarefa: Itarefa = { id: id, tarefa: input, publico: isPublic };
-    setTarefas([...tarefas, novaTarefa]);
-    */
-    }
 
     setInput("");
     setIsPublic(false);
@@ -120,7 +118,7 @@ const Dashboard = ({ user }: IdashboardProps) => {
         <section className="text-slate-950 h-full w-full flex flex-col items-center gap-4 p-4">
           <h1 className="text-3xl font-semibold">Minhas tarefas</h1>
 
-          {tarefas.map(({id,tarefa,public:publico}) => <Tarefa key={id} titulo={tarefa} isPublic={publico} />)}
+          {tarefas.map(({id,tarefa,public:publico}) => <Tarefa key={id} titulo={tarefa} isPublic={publico} id={id} />)}
 
         </section>
       </main>
