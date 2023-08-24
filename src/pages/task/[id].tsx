@@ -10,11 +10,12 @@ import {
   where,
   query,
   getDocs,
+  deleteDoc,
 } from "firebase/firestore";
 import TextArea from "./../../components/TextArea/index";
 import { useSession } from "next-auth/react";
 import Comentario from "./../../components/Comentario";
-interface Icomentario {
+export interface Icomentario {
   id: string;
   taskId: string;
   nome: string;
@@ -32,15 +33,26 @@ interface Itarefa {
   comentarios: Icomentario[];
 }
 
-
-
 const Task = ({ tarefa, comentarios }: Itarefa) => {
- 
   const { data: session } = useSession();
   const [comentario, setComentario] = useState<string>("");
   const [todosComentarios, setTodosComentarios] = useState<Icomentario[]>(
     comentarios || []
   );
+
+  const handleDelete = async (id: string) => {
+    try {
+      const docRef = doc(db, "comentarios", id);
+      await deleteDoc(docRef);
+
+      const deleteComments = todosComentarios.filter(
+        (comentario) => comentario.id !== id
+      );
+      setTodosComentarios(deleteComments);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -101,19 +113,22 @@ const Task = ({ tarefa, comentarios }: Itarefa) => {
         )}
 
         <section className="w-[50%] flex flex-col justify-center ">
-          <h2 className="text-slate-950 text-xl font-semibold mb-3">Comentarios</h2>
+          <h2 className="text-slate-950 text-xl font-semibold mb-3">
+            Comentarios
+          </h2>
 
           <div className="flex flex-col gap-4">
             {todosComentarios.length === 0 ? (
               <span>Nenhum comentario encontrado</span>
             ) : (
-              todosComentarios.map(({ comentario,nome, email }) => (
+              todosComentarios.map(({ comentario, nome, email, id }) => (
                 <Comentario
-                  key={nome}
+                  key={id}
                   comentario={comentario}
-                 
+                  id={id}
                   nome={nome}
                   email={email}
+                  handleDelete={handleDelete}
                 />
               ))
             )}
@@ -128,26 +143,24 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id: string = params?.id as string;
   const docRef = doc(db, "tarefas", id);
   const snapshot = await getDoc(docRef);
-  const comentsRef = collection(db,"comentarios")
+  const comentsRef = collection(db, "comentarios");
 
   const q = query(comentsRef, where("taskId", "==", id));
 
   const comentsSnapshot = await getDocs(q);
-  
+
   let lista: Icomentario[] = [];
 
-  comentsSnapshot.docs.forEach((doc) => {
+  comentsSnapshot.forEach((doc) => {
     lista.push({
       id: doc.id,
       taskId: doc.data().taskId,
       comentario: doc.data().comentario,
       nome: doc.data().name,
       email: doc.data().user,
-    })
-  })
-  console.log(lista)
-  
-  
+    });
+  });
+  console.log(lista);
 
   if (snapshot.data() == undefined || !snapshot.data()?.public) {
     return {
