@@ -3,9 +3,9 @@ import React from 'react'
 
 const TextArea = ({...rest}:HTMLProps<HTMLTextAreaElement>) => {
   return (
-    <section className="p-3 bg-slate-200 rounded-md">
+    <section className="p-3 bg-slate-200 rounded-md shadow-md">
           <textarea
-            className="outline-none w-full text-slate-950 bg-slate-200 placeholder:text-slate-500"
+            className="outline-none w-full text-slate-950 bg-slate-200 placeholder:text-slate-500 "
             {...rest}
           ></textarea>
         </section>

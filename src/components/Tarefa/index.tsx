@@ -40,7 +40,9 @@ const Tarefa = ({ titulo, isPublic = false, id }: Itarefa) => {
             <h1 className="text-2xl font-semibold text-slate-500">{titulo}</h1>
           </Link>
         ) : (
-          <h1 className="text-2xl font-semibold text-slate-500">{titulo}</h1>
+          <Link href={`/task/${id}`}>
+            <h1 className="text-2xl font-semibold text-slate-500">{titulo}</h1>
+          </Link>
         )}
 
         <button onClick={() => handleDelete(id)}>
