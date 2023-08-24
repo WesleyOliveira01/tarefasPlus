@@ -9,9 +9,7 @@ import {
   query,
   orderBy,
   where,
-  onSnapshot,
-  doc,
-  deleteDoc
+  onSnapshot
 } from "firebase/firestore";
 // components
 import Head from "next/head";

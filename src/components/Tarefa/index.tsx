@@ -28,7 +28,7 @@ const Tarefa = ({ titulo, isPublic = false, id }: Itarefa) => {
           <h2 className="max-w-[20%] text-center text-blue-600  font-semibold rounded-md">
             PUBLICO
           </h2>
-          <button onClick={() => handleDelete(id)}>
+          <button onClick={() => handleShare(id)}>
             <FaShare size={20} color={"#2563EB"} />
           </button>
         </section>
@@ -36,7 +36,7 @@ const Tarefa = ({ titulo, isPublic = false, id }: Itarefa) => {
 
       <section className="flex  justify-between">
         {isPublic ? (
-          <Link href={`/tarefa/${id}`}>
+          <Link href={`/task/${id}`}>
             <h1 className="text-2xl font-semibold text-slate-500">{titulo}</h1>
           </Link>
         ) : (

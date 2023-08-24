@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TextArea from "../TextArea";
-import { Itarefa } from "@/interface/Itarefa";
+
 
 interface Iform {
  

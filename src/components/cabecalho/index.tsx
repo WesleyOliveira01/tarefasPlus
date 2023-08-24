@@ -20,7 +20,7 @@ const Cabecalho = () => {
         ):(
             <section className="flex gap-2 ">
               <button className="border-2 text-slate-200 hover:bg-slate-200 hover:text-slate-950 duration-300 font-semibold max-h-[3.5rem] p-3 rounded-md flex items-center">
-                <Link href="dashboard"> Meu painel </Link>
+                <Link href="/dashboard"> Meu painel </Link>
               </button>
               <button onClick={() => signOut()} className=" border-2 text-slate-200 max-h-[3.5rem] p-3 rounded-md flex items-center hover:bg-red-500 hover:border-red-500 duration-300">
                 Sair
