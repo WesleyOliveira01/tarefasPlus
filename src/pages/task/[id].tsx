@@ -128,7 +128,7 @@ const Task = ({ tarefa, comentarios }: Itarefa) => {
                   id={id}
                   nome={nome}
                   email={email}
-                  handleDelete={handleDelete}
+                  handleDelete={() => handleDelete(id)}
                 />
               ))
             )}
